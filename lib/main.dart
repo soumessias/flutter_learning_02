@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components/chart.dart';
 import 'components/transaction_form.dart';
 import 'dart:math';
 import 'components/transaction_list.dart';
@@ -11,6 +12,9 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
     );
   }
 }
@@ -21,12 +25,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -36,14 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Item Exemplo',
-      value: 9.99,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<Transaction> _transactions = [];
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -75,21 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            child: Card(
-              child: Text(
-                'Gráfico',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              elevation: 5,
-              color: Colors.teal,
-            ),
-          ),
+          Chart(_transactions),
           TransactionList(_transactions),
         ],
       ),
