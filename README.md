@@ -12,6 +12,9 @@ In it I learned about:
 * How to use Dismissible Widget in a List view
 * How to use the showDatePicker() function
 * How to get future values with .then function
+* How to use the MediaQuery function to resize Widgets responsively
+* How to lock the orientation using SystemChrome.setPreferredOrientations
+* How to use the AnimatedDigitWidget dep
 
 Some screenshots:
 

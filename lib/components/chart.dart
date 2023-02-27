@@ -1,3 +1,4 @@
+import 'package:animated_digit/animated_digit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -28,12 +29,20 @@ class _ChartState extends State<Chart> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      Text(
-        widget.recentTransactions.isEmpty
-            ? '0'
-            : '${widget.recentTransactions.map((e) => e.value).reduce((value, element) => value + element)}',
-        style: TextStyle(
-            fontSize: 40, fontWeight: FontWeight.bold, color: Colors.teal),
+      AnimatedDigitWidget(
+        value: widget.recentTransactions.isEmpty
+            ? 0
+            : widget.recentTransactions
+                .map((e) => e.value)
+                .reduce((value, element) => value + element),
+        fractionDigits: 2,
+        enableSeparator: true,
+        prefix: 'R\$ ',
+        textStyle: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: Colors.teal,
+        ),
       ),
       SizedBox(
         height: 10,

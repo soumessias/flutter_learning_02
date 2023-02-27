@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatefulWidget {
   List<Transaction> transactions;
+  void Function(String) onRemove;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   State<TransactionList> createState() => _TransactionListState();
@@ -17,7 +18,9 @@ class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 600,
+      height: (MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top) *
+          0.75,
       child: widget.transactions.isEmpty
           ? Column(
               children: [
@@ -43,9 +46,10 @@ class _TransactionListState extends State<TransactionList> {
                   background: Container(color: Colors.redAccent),
                   onDismissed: (direction) {
                     // Remove the item from the data source.
-                    setState(() {
-                      widget.transactions.removeAt(index);
-                    });
+                    widget.onRemove(tr.id);
+                    // setState(() {
+                    //   widget.transactions.removeAt(index);
+                    // });
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Despesa ${tr.title} apagada!')));
                   },
