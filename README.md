@@ -1,4 +1,4 @@
-# Despesas Pessoais (WIP)
+# Despesas Pessoais
 
 My second app made with Dart/Flutter! 🚀
 
